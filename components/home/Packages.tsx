@@ -49,9 +49,16 @@ function getOverrideCurrency(): Currency | null {
       }
     }
     if (typeof localStorage !== "undefined") {
+      // explicit override takes precedence
       const forced = localStorage.getItem("force_ccy");
       if (forced) {
         const upper = forced.toUpperCase();
+        if (upper in INR_PER_UNIT) return upper as Currency;
+      }
+      // fall back to last detected (helps smooth SSR geo mismatches)
+      const last = localStorage.getItem("last_ccy");
+      if (last) {
+        const upper = last.toUpperCase();
         if (upper in INR_PER_UNIT) return upper as Currency;
       }
     }
@@ -189,7 +196,13 @@ function useLocalizedPricing() {
   const [{ currency, locale }, setLoc] = useState(() => detectCurrency());
   useEffect(() => {
     // Re-evaluate on client after hydration in case SSR locale differs
-    setLoc(detectCurrency());
+    const det = detectCurrency();
+    setLoc(det);
+    try {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem("last_ccy", det.currency);
+      }
+    } catch {}
   }, []);
   return { currency, locale };
 }
