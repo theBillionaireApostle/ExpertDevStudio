@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { MotionSection, fadeInUp } from "../../components/ui/motion";
 import {
   Layers3,
@@ -17,15 +18,45 @@ import {
   MoveRight,
 } from "lucide-react";
 
-// --- Currency/pricing helpers ---
+// --- Currency override + formatting helpers ---
 type Currency = "INR" | "USD" | "EUR" | "GBP" | "AED" | "AUD" | "CAD" | "SGD";
 type PkgCode = "L0" | "L1" | "L2" | "L3";
+const DEFAULT_CURRENCY: Currency = "INR";
+const SUPPORTED: Currency[] = ["INR","USD","EUR","GBP","AED","AUD","CAD","SGD"];
+
+function getOverrideCurrency(): Currency | null {
+  try {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      const q = url.searchParams.get("ccy");
+      if (q) {
+        const up = q.toUpperCase();
+        if (SUPPORTED.includes(up as Currency)) return up as Currency;
+      }
+    }
+    if (typeof localStorage !== "undefined") {
+      const forced = localStorage.getItem("force_ccy");
+      if (forced) {
+        const up = forced.toUpperCase();
+        if (SUPPORTED.includes(up as Currency)) return up as Currency;
+      }
+    }
+  } catch {}
+  return null;
+}
 
 function detectCurrency(): Currency {
   try {
+    // Manual override via URL (?ccy=INR) or localStorage ('force_ccy')
+    const override = getOverrideCurrency();
+    if (override) return override;
+
     // Prefer time zone (more reliable on iOS Safari) then language region
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-    const lang = (typeof navigator !== "undefined" && navigator.language) ? navigator.language : "en-US";
+    const lang =
+      typeof navigator !== "undefined" && (navigator.languages?.[0] || navigator.language)
+        ? (navigator.languages?.[0] || navigator.language)
+        : "en-IN";
     const region = (lang.split("-")[1] || "").toUpperCase();
 
     const tzLower = tz.toLowerCase();
@@ -46,14 +77,13 @@ function detectCurrency(): Currency {
       case "CA": return "CAD";
       case "IE": case "DE": case "FR": case "ES": case "IT": case "NL": case "PT": case "AT": case "BE": case "FI": case "GR": case "SK": case "SI": case "LV": case "LT": case "EE": case "CY": case "MT":
         return "EUR";
-      default: return "USD";
+      default: return DEFAULT_CURRENCY; // prefer INR by default
     }
   } catch {
-    return "USD";
+    return DEFAULT_CURRENCY; // safe fallback
   }
 }
 
-// Nicely rounded, pre-localized display prices per currency
 const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
   L0: {
     INR: "₹29,000",
@@ -97,12 +127,15 @@ const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
   },
 };
 
-function priceFor(code: PkgCode): string {
-  const cur = detectCurrency();
-  return PRICE_TABLE[code][cur] ?? PRICE_TABLE[code].USD;
+function priceFor(code: PkgCode, cur: Currency): string {
+  return PRICE_TABLE[code][cur] ?? PRICE_TABLE[code].INR;
 }
 
 export default function ServicesPage() {
+  const [ccy, setCcy] = useState<Currency>(DEFAULT_CURRENCY);
+  useEffect(() => {
+    setCcy(detectCurrency());
+  }, []);
   return (
     <>
       {/* HERO */}
@@ -244,7 +277,9 @@ export default function ServicesPage() {
                   <h3 className="text-base font-semibold tracking-tight">{t}</h3>
                 </div>
                 {code && (
-                  <div className="mt-1 text-sm font-semibold text-prussian">{priceFor(code)}</div>
+                  <div className="mt-1 text-sm font-semibold text-prussian" suppressHydrationWarning>
+                    {priceFor(code, ccy)}
+                  </div>
                 )}
                 <ul className="mt-3 space-y-2 text-sm text-black/70">
                   {d.map((x) => (
