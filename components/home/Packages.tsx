@@ -35,6 +35,30 @@ const INR_PER_UNIT: Record<Currency, number> = {
   JPY: 0.54, CHF: 92, SEK: 7.9, NOK: 7.2, DKK: 12.1, HKD: 10.6, NZD: 50, MYR: 17.7,
 };
 
+const DEFAULT_CURRENCY: Currency = "INR";
+const INR_LOCALE = "en-IN";
+
+function getOverrideCurrency(): Currency | null {
+  try {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      const q = url.searchParams.get("ccy");
+      if (q) {
+        const upper = q.toUpperCase();
+        if (upper in INR_PER_UNIT) return upper as Currency;
+      }
+    }
+    if (typeof localStorage !== "undefined") {
+      const forced = localStorage.getItem("force_ccy");
+      if (forced) {
+        const upper = forced.toUpperCase();
+        if (upper in INR_PER_UNIT) return upper as Currency;
+      }
+    }
+  } catch {}
+  return null;
+}
+
 // Try extract a region code from locale strings like en-US / fr_FR / pt-BR
 function getRegionFromLocales(): string | null {
   const pick = (loc: string) => {
@@ -86,15 +110,13 @@ const TZ_HINTS: Record<string, string> = {
 };
 
 function detectCurrency(): { currency: Currency; locale: string } {
-  // allow manual override for testing/support
-  if (typeof localStorage !== "undefined") {
-    const forced = localStorage.getItem("force_ccy") as Currency | null;
-    if (forced && (forced in INR_PER_UNIT)) {
-      const locale =
-        (typeof navigator !== "undefined" && (navigator.languages?.[0] || navigator.language)) ||
-        "en-US";
-      return { currency: forced, locale };
-    }
+  // allow manual override via URL (?ccy=INR) or localStorage ('force_ccy')
+  const override = getOverrideCurrency();
+  if (override) {
+    const locale =
+      (typeof navigator !== "undefined" && (navigator.languages?.[0] || navigator.language)) ||
+      "en-US";
+    return { currency: override, locale };
   }
 
   // Best available locale for formatting
@@ -121,10 +143,14 @@ function detectCurrency(): { currency: Currency; locale: string } {
     }
   }
 
-  // Prefer time-zone derived region when it exists (physical location beats language choice)
   const region = regionFromTZ || regionFromLocale;
 
-  const currency = (region && COUNTRY_TO_CCY[region]) || "USD";
+  // Prefer INR explicitly for India; otherwise map region or fall back to DEFAULT_CURRENCY
+  const currency: Currency =
+    region === "IN"
+      ? "INR"
+      : ((region && COUNTRY_TO_CCY[region]) || DEFAULT_CURRENCY);
+
   return { currency, locale };
 }
 
@@ -138,7 +164,8 @@ function convertINR(amountINR: number, currency: Currency) {
 }
 
 function fmtCurrency(value: number, currency: Currency, locale: string) {
-  return new Intl.NumberFormat(locale, {
+  const useLocale = currency === "INR" ? INR_LOCALE : locale;
+  return new Intl.NumberFormat(useLocale, {
     style: "currency",
     currency,
     maximumFractionDigits: 0,
