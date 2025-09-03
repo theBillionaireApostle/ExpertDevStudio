@@ -117,7 +117,7 @@ const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
   },
   L3: {
     INR: "from ₹3,50,000",
-    USD: "from $4,200",
+    USD: "from $4,217",
     EUR: "from €3,900",
     GBP: "from £3,400",
     AED: "from AED 15,500",
@@ -132,9 +132,11 @@ function priceFor(code: PkgCode, cur: Currency): string {
 }
 
 export default function ServicesPage() {
-  const [ccy, setCcy] = useState<Currency>(DEFAULT_CURRENCY);
+  // Lock Services page prices to USD to match homepage; still allow explicit overrides (?ccy=... or localStorage 'force_ccy')
+  const [ccy, setCcy] = useState<Currency>("USD");
   useEffect(() => {
-    setCcy(detectCurrency());
+    const override = getOverrideCurrency();
+    setCcy(override || "USD");
   }, []);
   return (
     <>
