@@ -157,7 +157,7 @@ export default function ServicesPage() {
               className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-black/70 shadow-sm backdrop-blur"
             >
               <ShieldCheck className="h-3.5 w-3.5 text-prussian" />
-              Opinionated where it matters. Practical everywhere else.
+              Clarity, speed, and outcomes-no fluff.
             </motion.span>
 
             <motion.h1
@@ -165,15 +165,14 @@ export default function ServicesPage() {
               variants={fadeInUp}
               className="mx-auto mt-4 max-w-4xl font-display text-4xl font-semibold tracking-tight sm:text-5xl"
             >
-              Services crafted to convert—<span className="text-cerulean">engineered</span> for speed.
+              Websites that earn trust and convert Built fast, Built right.
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
               className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/70 sm:text-lg"
             >
-              We design and build premium websites and web apps that look luxury and load fast.
-              Clear messaging, disciplined execution, and calm delivery—so you can ship with confidence.
+              Get a premium site that loads fast, reads clearly, and makes it easy for visitors to say “yes.” We ship in focused sprints-clean execution, calm delivery, measurable results.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -181,7 +180,7 @@ export default function ServicesPage() {
                 href="/#packages"
                 className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-medium text-black shadow-sm hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cerulean/40"
               >
-                See transparent packages
+                See packages &amp; pricing
               </a>
               <a
                 href="/contact"
@@ -205,13 +204,13 @@ export default function ServicesPage() {
             id="what-we-do-title"
             className="font-display text-center text-2xl font-semibold tracking-tight sm:text-left sm:text-3xl"
           >
-            What we do best
+            Where we help most
           </motion.h2>
           <motion.p
             variants={fadeInUp}
             className="mx-auto mt-2 max-w-2xl text-center text-sm text-black/70 sm:mx-0 sm:text-left"
           >
-            Focused, high‑impact work. No bloat, no fluff—just the parts that move the needle.
+            High‑leverage work that moves metrics-no bloat, no busywork.
           </motion.p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -219,50 +218,86 @@ export default function ServicesPage() {
               {
                 code: "L0" as PkgCode,
                 t: "L0 · Landing Page Sprint",
-                d: ["High‑converting hero, proof, CTA", "Analytics + events wired", "Ships in 7 days"],
+                d: [
+                  "High‑converting hero, social proof, clear CTA",
+                  "Analytics & events set up",
+                  "Ships in 7 days, start to finish",
+                ],
                 Icon: Layers3,
               },
               {
                 code: "L1" as PkgCode,
                 t: "L1 · Authority Site",
-                d: ["3–5 pages + blog", "SEO basics + schema", "Lead magnet + opt‑in"],
+                d: [
+                  "3-5 pages plus blog hub",
+                  "SEO foundations & schema",
+                  "Lead magnet with opt‑in",
+                ],
                 Icon: CheckCircle2,
               },
               {
                 code: "L2" as PkgCode,
                 t: "L2 · Storefront",
-                d: ["Catalog & product pages", "Razorpay checkout", "Perf‑tuned for mobile"],
+                d: [
+                  "Clean catalog & product pages",
+                  "Razorpay checkout",
+                  "Performance‑tuned for mobile",
+                ],
                 Icon: ShoppingCart,
               },
               {
                 code: "L3" as PkgCode,
                 t: "L3 · Custom Build",
-                d: ["Bespoke scope", "Integrations & auth", "Roadmap partnership"],
+                d: [
+                  "Bespoke scope & roadmap",
+                  "Integrations, auth & automation",
+                  "Senior partnership, ongoing",
+                ],
                 Icon: Rocket,
               },
               {
                 t: "Dashboards & Admins",
-                d: ["Role‑based UIs", "Clean data flows", "Accessible components"],
+                d: [
+                  "Role‑based UIs",
+                  "Clean data flows",
+                  "Accessible, maintainable components",
+                ],
                 Icon: LayoutDashboard,
               },
               {
                 t: "Performance Tuning",
-                d: ["Core Web Vitals wins", "Asset budgets & caching", "Edge/CDN strategy"],
+                d: [
+                  "Core Web Vitals wins",
+                  "Asset budgets & smart caching",
+                  "Edge/CDN strategy",
+                ],
                 Icon: GaugeCircle,
               },
               {
                 t: "Maintenance & Growth",
-                d: ["Retainers & SLOs", "A/B, analytics, SEO", "Quarterly roadmap"],
+                d: [
+                  "Retainers with SLOs",
+                  "A/B testing, analytics, SEO",
+                  "Quarterly growth roadmap",
+                ],
                 Icon: Wrench,
               },
               {
                 t: "Content & SEO",
-                d: ["Keyword strategy & IA", "Editorial system & CMS", "On‑page SEO & schema"],
+                d: [
+                  "Keyword strategy & IA",
+                  "Editorial system in your CMS",
+                  "On‑page SEO & schema",
+                ],
                 Icon: Search,
               },
               {
                 t: "Migration & Replatforming",
-                d: ["Tech audit & plan", "Zero‑downtime migration", "Perf & SEO safeguards"],
+                d: [
+                  "Technical audit & plan",
+                  "Zero‑downtime migration",
+                  "Performance & SEO safeguards",
+                ],
                 Icon: MoveRight,
               },
             ].map(({ t, d, Icon, code }) => (
@@ -311,16 +346,16 @@ export default function ServicesPage() {
             variants={fadeInUp}
             className="mx-auto mt-2 max-w-2xl text-center text-sm text-black/70 sm:mx-0 sm:text-left"
           >
-            Scope with intent. Ship value weekly. No chaos.
+            Scope with intent. Ship value weekly. Stay in control.
           </motion.p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-5">
             {[
-              ["01", "Discovery", "Goals, audience, constraints. Rapid alignment."],
-              ["02", "Messaging", "Sharp value prop, IA, and wire flows."],
-              ["03", "Design", "Elegant UI on reusable patterns."],
-              ["04", "Build", "Clean components. Accessible and fast."],
-              ["05", "Launch", "Analytics, QA, and smooth hand‑off."],
+              ["01", "Discovery", "Goals, audience, constraints → rapid alignment."],
+              ["02", "Messaging", "Sharp value prop, information architecture, and user flows."],
+              ["03", "Design", "Elegant UI on reusable components."],
+              ["04", "Build", "Clean code. Accessible, maintainable, fast."],
+              ["05", "Launch", "Analytics, QA, hand‑off + playbook."],
             ].map(([step, title, desc]) => (
               <motion.div
                 key={step}
@@ -357,24 +392,36 @@ export default function ServicesPage() {
             <motion.h2
               variants={fadeInUp}
               id="pricing-title"
-              className="font-display text-center text-2xl font-semibold tracking-tight sm:text-left sm:text-3xl"
+              className="font-display text-center text-2xl font-semibold tracking-tight sm:text-3xl"
             >
-              Transparent pricing
+              Simple pricing, clear outcomes.
             </motion.h2>
             <motion.p
               variants={fadeInUp}
-              className="mx-auto mt-2 max-w-2xl text-center text-sm text-black/70 sm:mx-0 sm:text-left"
+              className="mx-auto mt-2 max-w-2xl text-center text-sm text-black/70"
             >
-              Prices auto‑localize to your currency. See detailed options on the homepage.
+              Packages show in your local currency. Compare details and deliverables on the homepage.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="mt-6 flex justify-center">
               <a
                 href="/#packages"
-                className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-medium text-black shadow-sm hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cerulean/40"
+                aria-label="Compare website packages and pricing"
+                className="group relative inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_-12px_rgba(0,126,167,0.55)] ring-1 ring-cerulean/30 focus:outline-none focus-visible:ring-4 focus-visible:ring-cerulean/50"
+                style={{ background: "linear-gradient(135deg,#0A6F95 0%,#007EA7 50%,#003459 100%)" }}
               >
-                View packages
-                <Rocket className="h-4 w-4" aria-hidden />
+                {/* Glow ring on hover */}
+                <span
+                  className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 group-hover:opacity-100 ring-2 ring-cerulean/50"
+                  aria-hidden
+                />
+                {/* Shine sweep */}
+                <span
+                  className="pointer-events-none absolute -left-1/4 top-0 h-full w-1/3 -skew-x-12 bg-white/20 blur-md transition-transform duration-500 group-hover:translate-x-[220%]"
+                  aria-hidden
+                />
+                Compare packages
+                <Rocket className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
               </a>
             </motion.div>
           </MotionSection>
@@ -395,18 +442,18 @@ export default function ServicesPage() {
             {[
               {
                 q: "How fast can we start?",
-                a: "Discovery calls are usually available this week. If there’s a fit, your first sprint starts within 5–10 days.",
+                a: "Discovery calls are available this week. If there’s a fit, we usually kick off within 5–10 days.",
               },
               {
-                q: "What’s included in a sprint?",
-                a: "Clear goals, a prioritized scope, design and build on agreed patterns, QA, analytics/events, and a clean hand‑off.",
+                q: "What do I get in a sprint?",
+                a: "Clear goals, a prioritized scope, design and build on agreed patterns, QA, analytics/events, and a clean hand‑off-no surprises.",
               },
               {
-                q: "Do you work with existing stacks?",
-                a: "Yes. We’re comfortable integrating into established systems or starting greenfield—whichever moves the needle faster.",
+                q: "Can you plug into our existing stack?",
+                a: "Yes. We integrate with your tools and workflows or start greenfield-whichever gets results faster.",
               },
               {
-                q: "Can you support us after launch?",
+                q: "Do you support us after launch?",
                 a: "Absolutely. We offer retainers with response‑time SLOs, quarterly roadmaps, and growth work (A/B, SEO, performance).",
               },
             ].map(({ q, a }) => (
@@ -435,10 +482,10 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
           <MotionSection amount={0.25} className="text-center">
             <motion.h2 variants={fadeInUp} id="cta-title" className="font-display text-2xl font-semibold">
-              Ready to move fast—without the mess?
+              Ready to launch with confidence?
             </motion.h2>
             <motion.p variants={fadeInUp} className="mx-auto mt-2 max-w-2xl text-sm text-black/70">
-              Book a 15‑minute discovery call. If there’s a fit, your first sprint starts this week.
+              Book a 15‑minute discovery call. If there’s a fit, we start within days and ship value in week one.
             </motion.p>
             <motion.div variants={fadeInUp} className="mt-4 flex justify-center">
               <a
@@ -509,7 +556,7 @@ export default function ServicesPage() {
                 acceptedAnswer: {
                   "@type": "Answer",
                   text:
-                    "Yes. We’re comfortable integrating into established systems or starting greenfield—whichever moves the needle faster.",
+                    "Yes. We’re comfortable integrating into established systems or starting greenfield-whichever moves the needle faster.",
                 },
               },
               {
